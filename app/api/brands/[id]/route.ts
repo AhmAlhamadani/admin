@@ -45,20 +45,24 @@ async function proxyRequest(request: NextRequest, path: string) {
   }
 }
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-  return proxyRequest(request, `/api/brands/${params.id}`);
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return proxyRequest(request, `/api/brands/${id}`);
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
-  return proxyRequest(request, `/api/brands/${params.id}`);
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return proxyRequest(request, `/api/brands/${id}`);
 }
 
-export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
-  return proxyRequest(request, `/api/brands/${params.id}`);
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return proxyRequest(request, `/api/brands/${id}`);
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
-  return proxyRequest(request, `/api/brands/${params.id}`);
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return proxyRequest(request, `/api/brands/${id}`);
 }
 
 export async function OPTIONS() {
