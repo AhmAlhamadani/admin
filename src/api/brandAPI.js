@@ -75,7 +75,7 @@ export const uploadAPI = {
     formData.append('image', file);
     formData.append('destination', destination);
     
-    const response = await api.post('/api/upload', formData, {
+    const response = await api.post('/upload', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
     return response.data;
@@ -87,7 +87,7 @@ export const uploadAPI = {
     files.forEach(file => formData.append('images', file));
     formData.append('destination', destination);
     
-    const response = await api.post('/api/upload-multiple', formData, {
+    const response = await api.post('/upload-multiple', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
     return response.data;

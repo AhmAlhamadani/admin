@@ -24,7 +24,9 @@ async function proxyRequest(request: NextRequest, path: string) {
     });
 
     if (!response.ok) {
-      throw new Error(`API responded with status: ${response.status}`);
+      const errorText = await response.text();
+      console.error('API Error Response:', errorText);
+      throw new Error(`API responded with status: ${response.status} - ${errorText}`);
     }
 
     const data = await response.json();
@@ -39,7 +41,7 @@ async function proxyRequest(request: NextRequest, path: string) {
   } catch (error) {
     console.error('API Proxy Error:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch data from API' },
+      { error: 'Failed to fetch data from API', details: error instanceof Error ? error.message : String(error) },
       { status: 500 }
     );
   }
