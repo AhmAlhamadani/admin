@@ -3,7 +3,7 @@ import axios from 'axios';
 // Use local Next.js API proxy to avoid CORS issues
 const API_BASE_URL = process.env.NODE_ENV === 'development' 
   ? 'http://localhost:3002/api' 
-  : 'http://atlasplast-backend-nzgbks-ac6dbf-147-93-120-252.traefik.me';
+  : '/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
