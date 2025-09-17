@@ -1,0 +1,46 @@
+import { NextRequest, NextResponse } from 'next/server';
+
+const API_BASE_URL = 'http://atlasplast-backend-nzgbks-ac6dbf-147-93-120-252.traefik.me';
+
+export async function POST(request: NextRequest) {
+  try {
+    const formData = await request.formData();
+    const apiUrl = `${API_BASE_URL}/api/brands/with-images`;
+    
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`API responded with status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    return NextResponse.json(data, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      },
+    });
+  } catch (error) {
+    console.error('API Proxy Error:', error);
+    return NextResponse.json(
+      { error: 'Failed to upload brand with images' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    },
+  });
+}
